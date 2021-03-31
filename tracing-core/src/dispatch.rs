@@ -193,6 +193,7 @@ static SCOPED_COUNT: AtomicUsize = AtomicUsize::new(0);
 const UNINITIALIZED: usize = 0;
 const INITIALIZING: usize = 1;
 const INITIALIZED: usize = 2;
+const UNINITIALIZING: usize = 3;
 
 static mut GLOBAL_DISPATCH: Dispatch = Dispatch {
     #[cfg(feature = "alloc")]
@@ -418,6 +419,27 @@ where
             f(&Dispatch::none())
         })
         .unwrap_or_else(|_| f(&Dispatch::none()))
+}
+
+/// Unsets the global default dispatch.
+///
+/// This is typically only used in tests to reset global state.
+pub fn unset_global_default() {
+    if GLOBAL_INIT
+        .compare_exchange(
+            INITIALIZED,
+            UNINITIALIZING,
+            Ordering::SeqCst,
+            Ordering::SeqCst,
+        )
+        .is_ok()
+    {
+        unsafe {
+            GLOBAL_DISPATCH = Dispatch::none();
+        }
+        GLOBAL_INIT.store(UNINITIALIZED, Ordering::SeqCst);
+        EXISTS.store(false, Ordering::Release);
+    }
 }
 
 /// Executes a closure with a reference to this thread's current [dispatcher].

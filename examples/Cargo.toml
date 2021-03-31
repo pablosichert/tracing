@@ -31,7 +31,7 @@ futures = "0.3"
 tokio = { version = "1.1", features = ["full"] }
 
 # env-logger example
-env_logger = "0.8"
+env_logger = { git = "https://github.com/pablosichert/env_logger", rev = "c86bfaf76f75f5e886a46e6745ce97745f53233c" }
 
 # tower examples
 tower = { version = "0.4.4", features = ["full"] }
@@ -44,7 +44,7 @@ clap = "2.33"
 # sloggish example
 ansi_term = "0.12"
 humantime = "2.0"
-log = "0.4"
+log = { git = "https://github.com/pablosichert/log", rev = "30b1432a367006e63609b678afbd5fe5c0c728be" }
 
 # infero example
 inferno = "0.10.0"

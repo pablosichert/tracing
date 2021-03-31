@@ -31,7 +31,7 @@ edition = "2018"
 
 [dependencies]
 tracing-core = { path = "../tracing-core", version = "0.2", default-features = false }
-log = { version = "0.4", optional = true }
+log = { git = "https://github.com/pablosichert/log", rev = "30b1432a367006e63609b678afbd5fe5c0c728be", optional = true }
 tracing-attributes = { path = "../tracing-attributes", version = "0.2", optional = true }
 cfg-if = "1.0.0"
 pin-project-lite = "0.2"
@@ -39,7 +39,7 @@ pin-project-lite = "0.2"
 [dev-dependencies]
 futures = "0.1"
 criterion = { version = "0.3", default_features = false }
-log = "0.4"
+log = { git = "https://github.com/pablosichert/log", rev = "30b1432a367006e63609b678afbd5fe5c0c728be" }
 tokio = { version = "0.2.21", features = ["rt-core"] }
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]

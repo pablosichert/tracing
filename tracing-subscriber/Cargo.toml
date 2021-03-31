@@ -59,7 +59,7 @@ thread_local = { version = "1.0.1", optional = true }
 
 [dev-dependencies]
 tracing = { path = "../tracing", version = "0.2" }
-log = "0.4"
+log = { git = "https://github.com/pablosichert/log", rev = "30b1432a367006e63609b678afbd5fe5c0c728be" }
 tracing-log = { path = "../tracing-log", version = "0.2" }
 criterion = { version = "0.3", default_features = false }
 regex = { version = "1", default-features = false, features = ["std"] }

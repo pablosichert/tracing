@@ -148,6 +148,15 @@ impl LogTracer {
     pub fn init() -> Result<(), SetLoggerError> {
         Self::builder().init()
     }
+
+    /// Resets the global logger for the `log` crate.
+    ///
+    /// If the logger has been initialized before calling `reset`, memory of the
+    /// previous `LogTracer` will leak. This method should typically only be
+    /// used in tests to reset global state.
+    pub fn reset() {
+        Self::builder().reset()
+    }
 }
 
 impl Default for LogTracer {
@@ -245,6 +254,16 @@ impl Builder {
         log::set_boxed_logger(logger)?;
         log::set_max_level(self.filter);
         Ok(())
+    }
+
+    /// Resets the global logger.
+    ///
+    /// If the logger has been initialized before calling `reset`, memory of the
+    /// previous `LogTracer` will leak. This method should typically only be
+    /// used in tests to reset global state.
+    pub fn reset(self) {
+        log::unset_logger();
+        log::reset_max_level();
     }
 }
 
